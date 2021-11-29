@@ -45,6 +45,15 @@ const Login = ({ navigation }) => {
       secureTextEntry: !data.secureTextEntry,
     });
   };
+  const handleSignUp =() =>{
+    auth 
+        .createUserWithEnailAndPassword(email,password)
+        .then(userCredential =>{
+          const user = userCredentials.user;
+          console.log(user.email);
+        })
+        .catch(error => alert(error.message))
+  }
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -98,7 +107,7 @@ const Login = ({ navigation }) => {
 
         <TouchableOpacity
           style={styles.inputbutton2}
-          onPress={() => navigation.navigate('Signup')}>
+          onPress={(handleSignUp) => navigation.navigate('Signup')}>
           <Text style={{ fontSize: 20, alignSelf: 'center', color: 'red' }}>
             SIGN UP
             <MaterialIcons name="navigate-next" color="red" size={20} />
