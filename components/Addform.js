@@ -47,7 +47,7 @@ borderTopWidth:2
  },
  inputtext:{
    padding:20,
-   outline:'none'
+  // outline:'none'
  },
  inputbutton:{
    position:'absolute',
