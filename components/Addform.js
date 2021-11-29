@@ -12,7 +12,7 @@ const Addform = ({ navigation }) => {
        <View style={styles.bottom}>
      <TextInput placeholder="Enter Event" style={styles.inputtext}/>
      <TouchableOpacity style={styles.inputbutton}
-     onPress={this.addtask}
+     
      >
      <Text style={{fontSize:20}}>
      +

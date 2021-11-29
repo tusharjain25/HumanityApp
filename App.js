@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
+
+
 import Constants from 'expo-constants';
 import Front from './components/Front';
 import Login from './components/Login';
@@ -20,25 +22,8 @@ import Lookform from "./components/Lookform";
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 const Stack = createStackNavigator();
-const firebaseConfig ={
-  apiKey: "AIzaSyAf3knpnLn5usQ63ZAhFhDH-j67YHW6rRQ",
 
-  authDomain: "humanityfirebase.firebaseapp.com",
 
-  databaseURL: "https://humanityfirebase-default-rtdb.firebaseio.com",
-
-  projectId: "humanityfirebase",
-
-  storageBucket: "humanityfirebase.appspot.com",
-
-  messagingSenderId: "428050493336",
-
-  appId: "1:428050493336:web:b0cd18515dee7f425885ed"
-
-};
-if(firebase.apps.length ===0){
-firebase.initializeApp(firebaseConfig);
-}
 export default function App() {
   return (
     <View style={styles.container}>
