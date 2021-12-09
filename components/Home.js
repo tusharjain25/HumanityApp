@@ -1,10 +1,30 @@
 import React from 'react';
-import { Text, View, StyleSheet,Pressable,TouchableOpacity} from 'react-native';
+import { Text, View, StyleSheet,Pressable,TouchableOpacity, Alert} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
+
+import firebase from "firebase";
+
 const Home = ({navigation}) =>{
+
+  const logOut = () => {
+    return Alert.alert("Are your sure?", "Are you sure you want to Log Out ?", [
+      {
+        text: "Yes",
+        onPress: () => {
+          console.log("Logging out...");
+          firebase.auth().signOut();
+        },
+      },
+
+      {
+        text: "No",
+      },
+    ]);
+  };
+
   return(
    <View style={styles.container}>
     <View style={styles.header}>
@@ -13,19 +33,19 @@ const Home = ({navigation}) =>{
 
      <TouchableOpacity
           style={[styles.inputbutton,{marginTop:40}]}
-          onPress={() => navigation.navigate('Addform')}>
+          onPress={() => navigation.navigate('addform')}>
           <Text style={{ fontSize: 20 ,alignSelf:"center",color:"white"}}>ADD AN EVENT<MaterialIcons name="navigate-next" color="white" size={20} /></Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.inputbutton}
-          onPress={() => navigation.navigate('Lookform')}>
+          onPress={() => navigation.navigate('lookform')}>
           <Text style={{ fontSize: 20,alignSelf:"center",color:"white" }}>LOOK FOR EVENT<MaterialIcons name="navigate-next" color="white" size={20} /></Text>    
         </TouchableOpacity>
 
      <View style={styles.footer}>
-     <TouchableOpacity style={styles.footericon} onPress={() => navigation.navigate('Home')} >
-    <Feather name="home" color="grey" size={25} />
+     <TouchableOpacity style={styles.footericon} onPress={() => logOut()} >
+    <Feather name="power" color="grey" size={25} />
     </TouchableOpacity>
 
      </View>
@@ -73,7 +93,7 @@ const styles = StyleSheet.create({
     color: 'white',
     marginTop:20,
     textAlign:'center',
-    
+    paddingTop:10
   },
    inputbutton: {
     marginTop: 50,

@@ -16,14 +16,14 @@ const Front = ({ navigation }) => {
         </Text>
         <TouchableOpacity
           style={styles.inputbutton}
-          onPress={() => navigation.navigate('Login')}>
+          onPress={() => navigation.navigate('login')}>
           <Text style={{ fontSize: 20 ,alignSelf:"center",color:"white"}}>LOGIN<MaterialIcons name="navigate-next" color="white" size={20} /></Text>
           
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.inputbutton}
-          onPress={() => navigation.navigate('Signup')}>
+          onPress={() => navigation.navigate('signup')}>
           <Text style={{ fontSize: 20,alignSelf:"center",color:"white" }}>SIGN UP<MaterialIcons name="navigate-next" color="white" size={20} /></Text>
           
         </TouchableOpacity>
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     //backgroundColor:'#DAA520',
   },
   container1: {
-    //marginTop: 15,
+    paddingTop: 25,
     fontSize: 30,
     color: 'blue',
     fontWeight: 'bold',
@@ -79,7 +79,6 @@ const styles = StyleSheet.create({
   container3: {
     marginTop: 20,
     textAlign: 'center',
-    fontFamily: 'arial',
     fontWeight: 'bold',
     color:"white",
   },
