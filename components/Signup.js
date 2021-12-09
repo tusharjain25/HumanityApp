@@ -6,11 +6,16 @@ import {
   TextInput,
   TouchableOpacity,
   Pressable,
+  Alert
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
+
+import firebase from 'firebase';
+
+
 const Signup = ({ navigation }) => {
   const [data, setData] = React.useState({
     email: '',
@@ -45,6 +50,22 @@ const Signup = ({ navigation }) => {
       secureTextEntry: !data.secureTextEntry,
     });
   };
+
+  const handleSignUp = async () => {
+
+    await firebase
+          .auth()
+          .createUserWithEmailAndPassword(data.email, data.password)
+          .then((result) => {
+            console.log('Signin');
+          })
+          .catch((error) => {
+            Alert.alert(
+              'User already exist'
+            );
+          });
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -53,11 +74,11 @@ const Signup = ({ navigation }) => {
 
       <Animatable.View animation='fadeInUpBig' style={styles.footer}>
 
-        <Text style={styles.text_footer}>USERNAME:</Text>
+        <Text style={styles.text_footer}>EMAIL:</Text>
         <View style={styles.action}>
           <FontAwesome name="user-o" color="white" size={35} />
           <TextInput
-            placeholder="your username"
+            placeholder="Your Email"
             placeholderTextColor="white"
             style={styles.textInput}
             autoCapitalize="none"
@@ -73,7 +94,7 @@ const Signup = ({ navigation }) => {
         <View style={styles.action}>
           <FontAwesome name="lock" color="white" size={35} />
           <TextInput
-            placeholder="your password "
+            placeholder="Your Password "
             placeholderTextColor="white"
             secureTextEntry={data.secureTextEntry ? true : false}
             style={styles.textInput}
@@ -86,11 +107,11 @@ const Signup = ({ navigation }) => {
           </TouchableOpacity>
         </View>
 
-         <Text style={styles.text_footer}>CONFIRM PASSWORD:</Text>
-        <View style={styles.action}>
+         {/* <Text style={styles.text_footer}>CONFIRM PASSWORD:</Text> */}
+        {/* <View style={styles.action}>
           <FontAwesome name="lock" color="white" size={35} />
           <TextInput
-            placeholder="confirm password "
+            placeholder="Confirm Password "
             placeholderTextColor="white"
             secureTextEntry={data.secureTextEntry ? true : false}
             style={styles.textInput}
@@ -101,12 +122,12 @@ const Signup = ({ navigation }) => {
               <Feather name="eye-off" color="grey" size={35} />:
                <Feather name="eye" color="grey" size={35} />}
           </TouchableOpacity>
-        </View>
+        </View> */}
 
          
         <TouchableOpacity
           style={styles.inputbutton1}
-          onPress={() => navigation.navigate('Login')}>
+          onPress={() => handleSignUp()}>
           <Text style={{ fontSize: 20, alignSelf: 'center', color: 'white' }}>
             SIGNUP
             <MaterialIcons name="navigate-next" color="white" size={20} />
@@ -115,7 +136,7 @@ const Signup = ({ navigation }) => {
 
        <TouchableOpacity
           style={styles.inputbutton2}
-          onPress={() => navigation.navigate('Login')}>
+          onPress={() => navigation.navigate('login')}>
           <Text style={{ fontSize: 20, alignSelf: 'center', color: 'red' }}>
             LOGIN
             <MaterialIcons name="navigate-next" color="red" size={20} />

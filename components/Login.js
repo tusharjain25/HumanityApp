@@ -6,11 +6,14 @@ import {
   TextInput,
   TouchableOpacity,
   Pressable,
+  Alert
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
+import firebase from 'firebase';
+
 const Login = ({ navigation }) => {
   const [data, setData] = React.useState({
     email: '',
@@ -45,15 +48,21 @@ const Login = ({ navigation }) => {
       secureTextEntry: !data.secureTextEntry,
     });
   };
-  const handleSignUp =() =>{
-    auth 
-        .createUserWithEnailAndPassword(email,password)
-        .then(userCredential =>{
-          const user = userCredentials.user;
-          console.log(user.email);
+
+  const handleLogin = () => {
+    firebase
+        .auth()
+        .signInWithEmailAndPassword(data.email, data.password)
+        .then((result) => {
+          console.log('Login');
         })
-        .catch(error => alert(error.message))
+        .catch((error) => {
+          Alert.alert(
+            'The password is invalid or the user does not exist.'
+          );
+        });
   }
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -63,11 +72,11 @@ const Login = ({ navigation }) => {
 
       <Animatable.View animation='fadeInUpBig' style={styles.footer}>
 
-        <Text style={styles.text_footer}>USERNAME:</Text>
+        <Text style={styles.text_footer}>EMAIL</Text>
         <View style={styles.action}>
           <FontAwesome name="user-o" color="white" size={35} />
           <TextInput
-            placeholder="your username"
+            placeholder="Your Email"
             placeholderTextColor="white"
             style={styles.textInput}
             autoCapitalize="none"
@@ -79,11 +88,11 @@ const Login = ({ navigation }) => {
            : null}
         </View>
 
-        <Text style={styles.text_footer}>PASSWORD:</Text>
+        <Text style={styles.text_footer}>PASSWORD</Text>
         <View style={styles.action}>
           <FontAwesome name="lock" color="white" size={35} />
           <TextInput
-            placeholder="your password "
+            placeholder="Your Password "
             placeholderTextColor="white"
             secureTextEntry={data.secureTextEntry ? true : false}
             style={styles.textInput}
@@ -98,7 +107,7 @@ const Login = ({ navigation }) => {
 
         <TouchableOpacity
           style={styles.inputbutton1}
-          onPress={() => navigation.navigate('Home')}>
+          onPress={() => handleLogin()}>
           <Text style={{ fontSize: 20, alignSelf: 'center', color: 'white' }}>
             LOGIN
             <MaterialIcons name="navigate-next" color="white" size={20} />
@@ -107,7 +116,7 @@ const Login = ({ navigation }) => {
 
         <TouchableOpacity
           style={styles.inputbutton2}
-          onPress={(handleSignUp) => navigation.navigate('Signup')}>
+          onPress={() => navigation.navigate('signup')}>
           <Text style={{ fontSize: 20, alignSelf: 'center', color: 'red' }}>
             SIGN UP
             <MaterialIcons name="navigate-next" color="red" size={20} />
